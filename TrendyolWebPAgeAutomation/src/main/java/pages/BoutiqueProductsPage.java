@@ -15,7 +15,7 @@ public class BoutiqueProductsPage {
     }
 
     /**
-     *
+     *Processing product images on the Boutique categories.
      */
 
     public void processProductImages(){
@@ -46,7 +46,5 @@ public class BoutiqueProductsPage {
         return isPresent ;
 
     }
-
-
 
 }
