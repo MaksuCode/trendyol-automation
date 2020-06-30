@@ -1,17 +1,24 @@
 package pages;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utilities.Helper;
 
 public class BoutiqueProductsPage {
 
+
     private WebDriver driver;
-    private By product = new By.ByCssSelector("div.image-container >img");
+    private By product = new By.ByCssSelector("div.image-container");
+    private By productImages = new By.ByCssSelector("div.boutique-product div.image-container >img") ;
+    private By prodcutImages_2 = new By.ByCssSelector("div.p-card-img-wr >img");
+    private Helper helper ;
+
+
+
 
     public BoutiqueProductsPage(WebDriver driver){
         this.driver = driver;
+        this.helper = new Helper(this.driver) ;
     }
 
     /**
@@ -19,10 +26,19 @@ public class BoutiqueProductsPage {
      */
 
     public void processProductImages(){
-        Helper helper = new Helper(driver);
         helper.scrollDown_EndOfThePage();
-        helper.getUrlOfTheImages(product);
-        helper.getImagesNotDownloadedProperly(product);
+        try{
+            driver.findElements(productImages) ;
+            helper.getUrlOfTheImages(productImages);
+            helper.getImagesNotDownloadedProperly(productImages);
+        }
+        catch (Exception ex)
+        {
+            driver.findElements(prodcutImages_2);
+            helper.getUrlOfTheImages(prodcutImages_2);
+            helper.getImagesNotDownloadedProperly(prodcutImages_2);
+        }
+        helper.scrollUp();
 
     }
 
@@ -32,6 +48,7 @@ public class BoutiqueProductsPage {
      */
 
     public ProductDetailsPage clickProduct(){
+        helper.optional_wait(product,5);
         driver.findElements(product).get(1).click();
         return new ProductDetailsPage(driver);
 
@@ -41,7 +58,9 @@ public class BoutiqueProductsPage {
      * Checks if the user is on the BoutiqueProductPage
      * @return Boolean
      */
+
     public Boolean checkIfTheUserIs_OnBoutiqueProductPage(){
+        helper.optional_wait(product,5);
         Boolean isPresent = driver.findElements(product).size() > 0;
         return isPresent ;
 

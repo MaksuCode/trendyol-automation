@@ -116,7 +116,7 @@ public class Helper {
 
 
     /**
-     * Prints the number of images found of the give element on the page.
+     * Prints the urls of images found of the given element on the page.
      * @param element :  By
      */
     public void getUrlOfTheImages(By element){
@@ -124,6 +124,32 @@ public class Helper {
         for (WebElement url : elements){
             System.out.println(url.getAttribute("src"));
         }
+    }
+
+    /**
+     * Waits for the visibility of the given element
+     * @param waitedElementLocator :By  element to be waited to appear
+     * @param seconds : time to wait in seconds.
+     */
+
+    public void optional_wait(By waitedElementLocator , int seconds){
+        WebElement elementToBeWaited = driver.findElement(waitedElementLocator);
+        WebDriverWait wait = new WebDriverWait(driver,seconds);
+        wait.until(ExpectedConditions.visibilityOf(elementToBeWaited));
+
+    }
+
+    /**
+     * Waits for the visibility of the given element
+     * @param elementToBeWaited : Webelement element to be waited to appear
+     * @param seconds time to wait in seconds.
+     */
+
+
+    public void optional_wait(WebElement elementToBeWaited , int seconds){
+        WebDriverWait wait = new WebDriverWait(driver,seconds);
+        wait.until(ExpectedConditions.visibilityOf(elementToBeWaited));
+
     }
 
 

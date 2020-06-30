@@ -21,9 +21,11 @@ public class LoggedInUserHomePage {
     private By userMailAddress = By.className("user-email");
     private By category = By.className("category-header");
     private By boutiqueImages = new By.ByCssSelector("span.image-container >img");
+    private Helper helper ;
 
     public LoggedInUserHomePage(WebDriver driver) {
         this.driver = driver;
+        this.helper = new Helper(this.driver);
     }
 
     /**
@@ -42,8 +44,7 @@ public class LoggedInUserHomePage {
      */
 
     public String getUserMailAddress_UnderAccountButton() {
-        Helper hoverOver = new Helper(driver);
-        return hoverOver.hoverOverElement_And_GetTheElementSearched(accountButton, userMailAddress);
+        return helper.hoverOverElement_And_GetTheElementSearched(accountButton,userMailAddress);
     }
 
     /**
@@ -60,7 +61,6 @@ public class LoggedInUserHomePage {
                 List<WebElement> webElementList = driver.findElements(category);
                 webElementList.get(i).click();
             }
-            Helper helper = new Helper(driver);
             helper.scrollDown_EndOfThePage();
             helper.getImagesNotDownloadedProperly(boutiqueImages);
             String name = driver.findElements(category).get(i).getText();
@@ -70,6 +70,9 @@ public class LoggedInUserHomePage {
         }
     }
 
+    /**
+     * Gets the names of categories on the page
+     */
 
     private void getNamesOfCategories(){
         List<WebElement> categories = driver.findElements(category) ;

@@ -3,6 +3,8 @@ package pages.categorypages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BoutiqueProductsPage;
 import utilities.Helper;
 
@@ -27,7 +29,7 @@ public class BaseCategory {
      */
 
     public BoutiqueProductsPage clickBoutique(){
-        driver.findElements(boutique).get(0).click();
+        driver.findElements(boutique).get(2).click();
         return new BoutiqueProductsPage(driver);
     }
 
