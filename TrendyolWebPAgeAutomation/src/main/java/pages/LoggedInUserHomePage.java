@@ -21,7 +21,7 @@ public class LoggedInUserHomePage {
     private By userMailAddress = By.className("user-email");
     private By category = By.className("category-header");
     private By boutiqueImages = new By.ByCssSelector("span.image-container >img");
-    private Helper helper ;
+    private Helper helper;
 
     public LoggedInUserHomePage(WebDriver driver) {
         this.driver = driver;
@@ -40,11 +40,12 @@ public class LoggedInUserHomePage {
 
     /**
      * Used to check if the user successfully logged in by checking the user mail address under the acoount button.
+     *
      * @return : User mail address.
      */
 
     public String getUserMailAddress_UnderAccountButton() {
-        return helper.hoverOverElement_And_GetTheElementSearched(accountButton,userMailAddress);
+        return helper.hoverOverElement_And_GetTheElementSearched(accountButton, userMailAddress);
     }
 
     /**
@@ -64,7 +65,7 @@ public class LoggedInUserHomePage {
             helper.scrollDown_EndOfThePage();
             helper.getImagesNotDownloadedProperly(boutiqueImages);
             String name = driver.findElements(category).get(i).getText();
-            System.out.println(name+ " "+ Constants.categoryHasFollowingBoutiques);
+            System.out.println(name + " " + Constants.categoryHasFollowingBoutiques);
             helper.getUrlOfTheImages(boutiqueImages);
             helper.scrollUp();
         }
@@ -74,9 +75,9 @@ public class LoggedInUserHomePage {
      * Gets the names of categories on the page
      */
 
-    private void getNamesOfCategories(){
-        List<WebElement> categories = driver.findElements(category) ;
-        for (WebElement name : categories){
+    private void getNamesOfCategories() {
+        List<WebElement> categories = driver.findElements(category);
+        for (WebElement name : categories) {
             name.getText();
         }
     }
@@ -84,61 +85,56 @@ public class LoggedInUserHomePage {
     /**
      * Below , there are click methods that go to the corresponding CategoryPages.
      * The reason why I did like this is I wanted to keep following POM(Page Object Model) which enables us to hold the pages as Objects.
+     *
      * @return : Category pages (individually)
      */
 
-    public WomanCategoryPage clickWomanCategory (){
+    public WomanCategoryPage clickWomanCategory() {
         driver.findElements(category).get(0).click();
-        return new WomanCategoryPage(driver) ;
+        return new WomanCategoryPage(driver);
     }
 
-    public MenCategoryPage clickMenCategory (){
+    public MenCategoryPage clickMenCategory() {
         driver.findElements(category).get(1).click();
         return new MenCategoryPage(driver);
     }
 
-    public KidCategoryPage clickKidCategory (){
+    public KidCategoryPage clickKidCategory() {
         driver.findElements(category).get(2).click();
-        return new KidCategoryPage(driver) ;
+        return new KidCategoryPage(driver);
     }
 
-    public HouseCategoryPage clickHouseCategory (){
+    public HouseCategoryPage clickHouseCategory() {
         driver.findElements(category).get(3).click();
-        return new HouseCategoryPage(driver) ;
+        return new HouseCategoryPage(driver);
     }
 
 
-    public SupermarketCategoryPage clickSupermarketCategory (){
+    public SupermarketCategoryPage clickSupermarketCategory() {
         driver.findElements(category).get(4).click();
-        return new SupermarketCategoryPage(driver) ;
+        return new SupermarketCategoryPage(driver);
     }
 
 
-    public CosmeticCategoryPage clickCosmeticCategory (){
+    public CosmeticCategoryPage clickCosmeticCategory() {
         driver.findElements(category).get(5).click();
-        return new CosmeticCategoryPage(driver) ;
+        return new CosmeticCategoryPage(driver);
     }
 
-    public ShoesAndBagCategoryPage clickShoesAndBagCategory (){
+    public ShoesAndBagCategoryPage clickShoesAndBagCategory() {
         driver.findElements(category).get(6).click();
-        return new ShoesAndBagCategoryPage(driver) ;
+        return new ShoesAndBagCategoryPage(driver);
     }
 
-    public WatchAndAccessoriesCategoryPage clickWatchAndAccessoriesCategory (){
+    public WatchAndAccessoriesCategoryPage clickWatchAndAccessoriesCategory() {
         driver.findElements(category).get(7).click();
-        return new WatchAndAccessoriesCategoryPage(driver) ;
+        return new WatchAndAccessoriesCategoryPage(driver);
     }
 
-    public ElectronicCategoryPage clickElectronicCategory (){
+    public ElectronicCategoryPage clickElectronicCategory() {
         driver.findElements(category).get(8).click();
-        return new ElectronicCategoryPage(driver) ;
+        return new ElectronicCategoryPage(driver);
     }
-
-
-
-
-
-
 
 
 }
