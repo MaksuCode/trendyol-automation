@@ -54,7 +54,7 @@ public class LoggedInUserHomePage {
 
     public void processBoutiqueImages() {
         int sizeOfCategory = driver.findElements(category).size();
-        for (int i = 0; i < sizeOfCategory; i++) {
+        for (int i = 8; i < sizeOfCategory; i++) {
             try {
                 List<WebElement> webElementList = driver.findElements(category);
                 webElementList.get(i).click();
@@ -62,10 +62,10 @@ public class LoggedInUserHomePage {
                 List<WebElement> webElementList = driver.findElements(category);
                 webElementList.get(i).click();
             }
-            helper.scrollDown_EndOfThePage();
+            helper.scrollDown_until_no_new_image_appears(boutiqueImages);
             helper.getImagesNotDownloadedProperly(boutiqueImages);
-            String name = driver.findElements(category).get(i).getText();
-            System.out.println(name + " " + Constants.categoryHasFollowingBoutiques);
+            String nameOfBoutique = driver.findElements(category).get(i).getText();
+            System.out.println(nameOfBoutique + " " + Constants.categoryHasFollowingBoutiques);
             helper.getUrlOfTheImages(boutiqueImages);
             helper.scrollUp();
         }

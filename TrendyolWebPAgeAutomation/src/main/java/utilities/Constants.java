@@ -9,8 +9,8 @@ public class Constants {
     /**
      * Test case parameters. Plese insert here a valid mail and password for the test!!
      */
-    public static String mailAddress = "" ;
-    public static String password = "";
+    public static String mailAddress = "mustafaksu4@gmail.com" ;
+    public static String password = "mustafa112";
     public static String wrongMailAddress = "mus@tafagmail.com";
     public static String wrongPassword = "1234" ;
 

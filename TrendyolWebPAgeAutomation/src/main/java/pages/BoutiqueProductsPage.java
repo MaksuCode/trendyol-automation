@@ -10,7 +10,7 @@ public class BoutiqueProductsPage {
     private WebDriver driver;
     private By product = new By.ByCssSelector("div.image-container");
     private By productImages = new By.ByCssSelector("div.boutique-product div.image-container >img") ;
-    private By prodcutImages_2 = new By.ByCssSelector("div.p-card-img-wr >img");
+    private By productImages_2 = new By.ByCssSelector("div.p-card-img-wr >img");
     private Helper helper ;
 
 
@@ -26,7 +26,8 @@ public class BoutiqueProductsPage {
      */
 
     public void processProductImages(){
-        helper.scrollDown_EndOfThePage();
+
+        helper.scrollDown_until_no_new_image_appears(product);
         try{
             driver.findElements(productImages) ;
             helper.getUrlOfTheImages(productImages);
@@ -34,9 +35,9 @@ public class BoutiqueProductsPage {
         }
         catch (Exception ex)
         {
-            driver.findElements(prodcutImages_2);
-            helper.getUrlOfTheImages(prodcutImages_2);
-            helper.getImagesNotDownloadedProperly(prodcutImages_2);
+            driver.findElements(productImages_2);
+            helper.getUrlOfTheImages(productImages_2);
+            helper.getImagesNotDownloadedProperly(productImages_2);
         }
         helper.scrollUp();
 

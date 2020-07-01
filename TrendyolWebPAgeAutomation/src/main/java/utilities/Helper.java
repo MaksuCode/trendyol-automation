@@ -1,14 +1,12 @@
 package utilities;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -48,10 +46,10 @@ public class Helper {
     /**
      * Scrolls downs until the given elemet on the page.
      * @param element : Element to which is going to  be scrolled.
-     */ //TODO : Scroll moves too fast so that it finds the element at the end of the page too quickly which causes to have less elements on the page.Fix it!
+     */
 
     public void scrollDownThroughImages_ToTheElementGiven(WebElement element){
-        ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_script,element);
+        ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_into_view_script,element);
         WebDriverWait wait = new WebDriverWait(driver , 10);
         wait.until(ExpectedConditions.elementToBeClickable(element));
         wait.withTimeout(Duration.ofSeconds(5));
@@ -63,20 +61,42 @@ public class Helper {
 
     public void scrollDown_EndOfThePage(){
         WebElement element = driver.findElement(androidOnThePageEnd);
-        ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_script,element);
+        ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_into_view_script,element);
         WebDriverWait wait = new WebDriverWait(driver , 10);
         wait.until(ExpectedConditions.elementToBeClickable(element));
         wait.withTimeout(Duration.ofSeconds(5));
     }
 
     /**
-     *
+     * Scrolls down to the end of the page until no new images appears. Used it to get ALL of the desired elements on the page.
+     * @param elementToBeScrolledThrough : Elements to be scrolled through page.
+     */
+
+    public void scrollDown_until_no_new_image_appears(By elementToBeScrolledThrough){
+        while (true){
+            int numberOfImagesEx = getNumberOf_GivenElement(elementToBeScrolledThrough) ;
+            ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_slow_motion,"");
+            WebDriverWait wait = new WebDriverWait(driver,5);
+            wait.pollingEvery(1, TimeUnit.SECONDS);
+            List<WebElement> elements = driver.findElements(elementToBeScrolledThrough);
+            wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+            if (getNumberOf_GivenElement(elementToBeScrolledThrough)==numberOfImagesEx){
+                break;
+            }
+        }
+        System.out.println(getNumberOf_GivenElement(elementToBeScrolledThrough)+ " elements found...");
+    }
+
+
+    /**
+     * Gets the images not downloaded properly.
      * @param imageSearchedThroughPage : Images that are searched to be checked if  downloaded or not.
-     *                                   The reason why I make it with a parameter is to be able to use it for both boutique images and product images.
+     * The reason why I make it with a parameter is to be able to use it for both boutique images and product images.
      */
 
     public void getImagesNotDownloadedProperly(By imageSearchedThroughPage) {
         List<WebElement> imageList = driver.findElements(imageSearchedThroughPage);
+        optional_wait(imageSearchedThroughPage,5);
         for (WebElement image : imageList){
             boolean loaded = (boolean) ((JavascriptExecutor)driver).executeScript(
                     JsScripts.imageDownloaded, image);
@@ -110,7 +130,6 @@ public class Helper {
      */
 
     public int getNumberOf_GivenElement(By element){
-        System.out.println(driver.findElements(element).size());
         return driver.findElements(element).size();
     }
 
