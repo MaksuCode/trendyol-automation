@@ -31,7 +31,7 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp(){
-        String browser ="chrome";
+        String browser ="explorer";
         if (browser.equals("chrome")){
             System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe") ;
             driver = new ChromeDriver();

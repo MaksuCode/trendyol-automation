@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.categorypages.*;
 import utilities.Constants;
 import utilities.Helper;
@@ -21,7 +22,10 @@ public class LoggedInUserHomePage {
     private By userMailAddress = By.className("user-email");
     private By category = By.className("category-header");
     private By boutiqueImages = new By.ByCssSelector("span.image-container >img");
+//    private By subCategory = new By.ByCssSelector("div.category-box >a") ;  //ul[@class='sub-item-list']//li//a
+    private By subCategory = By.xpath("//div[@class='category-box']//a[@class='sub-category-header']") ;
     private Helper helper;
+
 
     public LoggedInUserHomePage(WebDriver driver) {
         this.driver = driver;
@@ -31,15 +35,16 @@ public class LoggedInUserHomePage {
     /**
      * Closes the modal if appeared on the page.
      */
+
     public void closeModalIfExist() {
-        Boolean isPresent = driver.findElements(modalCloseButton).size() > 0;
+        boolean isPresent = driver.findElements(modalCloseButton).size() > 0;
         if (isPresent) {
             driver.findElement(modalCloseButton).click();
         }
     }
 
     /**
-     * Used to check if the user successfully logged in by checking the user mail address under the acoount button.
+     * Used to check if the user successfully logged in by checking the user mail address under the account button.
      *
      * @return : User mail address.
      */
@@ -54,7 +59,7 @@ public class LoggedInUserHomePage {
 
     public void processBoutiqueImages() {
         int sizeOfCategory = driver.findElements(category).size();
-        for (int i = 8; i < sizeOfCategory; i++) {
+        for (int i = 0; i < sizeOfCategory; i++) {
             try {
                 List<WebElement> webElementList = driver.findElements(category);
                 webElementList.get(i).click();
@@ -64,8 +69,8 @@ public class LoggedInUserHomePage {
             }
             helper.scrollDown_until_no_new_image_appears(boutiqueImages);
             helper.getImagesNotDownloadedProperly(boutiqueImages);
-            String nameOfBoutique = driver.findElements(category).get(i).getText();
-            System.out.println(nameOfBoutique + " " + Constants.categoryHasFollowingBoutiques);
+            String nameOfCategory = driver.findElements(category).get(i).getText();
+            System.out.println(nameOfCategory + " " + Constants.categoryHasFollowingBoutiques);
             helper.getUrlOfTheImages(boutiqueImages);
             helper.scrollUp();
         }
@@ -80,6 +85,15 @@ public class LoggedInUserHomePage {
         for (WebElement name : categories) {
             name.getText();
         }
+    }
+
+
+    public void getSubCategories() { //TODO
+//        List<WebElement> categories = driver.findElements(category);
+//        for (WebElement elements : categories){
+//            helper.hoverOverElement_And_GetTheElementListSearched(elements , subCategory);
+//        }
+//    }
     }
 
     /**

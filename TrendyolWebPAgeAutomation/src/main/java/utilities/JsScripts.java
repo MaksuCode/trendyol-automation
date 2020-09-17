@@ -5,6 +5,7 @@ package utilities;
  * Keeping these scripts apart improve code readability.
  * New scripts can be added here as needed.
  */
+
 public class JsScripts {
 
     public static String scroll_up_script = "window.scrollTo(0, 0)" ;

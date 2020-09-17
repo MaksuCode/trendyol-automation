@@ -13,6 +13,7 @@ public class HomePage {
     private By inputPassword = By.id("password") ;
     private By loginSubmitButton = By.id("loginSubmit") ;
     private Helper helper ;
+    private By wrongMailOrPasswordError = By.xpath("//div[@id='errorBox']");
 
     /**
      * HomePage is the page when the the browser first initiated.
@@ -27,8 +28,9 @@ public class HomePage {
     /**
      * Clicks the account button on the right top side of the page to initiate login process.
      */
+
     public void clickAccountButton(){
-        helper.optional_wait(accountButton,5);
+        helper.optional_wait(accountButton,3);
         try {
             driver.findElement(accountButton).click();
         }catch(org.openqa.selenium.StaleElementReferenceException e){
@@ -41,7 +43,7 @@ public class HomePage {
      * @return : Log pop-up Main Message.
      */
 
-    public String  getPopupLoginMainMessage(){
+    public String getPopupLoginMainMessage(){
         helper.optional_wait(popupLoginMainMessage,3);
         return driver.findElement(popupLoginMainMessage).getText();
     }
@@ -76,5 +78,12 @@ public class HomePage {
         driver.findElement(loginSubmitButton).click();
         return new LoggedInUserHomePage(driver);
     }
+
+    public String getErrorMessageOnLogin(){
+        return driver.findElement(wrongMailOrPasswordError).getText();
+
+    }
+
+
 
 }

@@ -26,6 +26,7 @@ public class Constants {
     public static String notOnTheBoutiqueProductPage = "Not on the correct page!" ;
     public static String notOnTheProductDetailsPage = "Not on the correct page!" ;
     public static String productNotAddedToTheCart = "Product not added to the cart!" ;
+    public static String wrongMailOrPasswordError = "Hatalı E-Posta / Şifre. Tekrar Deneyin.";
 
 
 }

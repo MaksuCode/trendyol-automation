@@ -33,16 +33,23 @@ public class Helper {
      */
 
     public String hoverOverElement_And_GetTheElementSearched(By elementHovered, By elementSearched){
-
         WebElement webElement = driver.findElement(elementHovered);
         Actions actions = new Actions(driver) ;
         actions.moveToElement(webElement).perform();
         WebDriverWait wait = new WebDriverWait(driver,5) ;
-        wait.until(ExpectedConditions.visibilityOf(
-                driver.findElement(elementSearched)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(elementSearched)));
         return driver.findElement(elementSearched).getText();
 
     }
+
+//    public String hoverOverElement_And_GetTheElementListSearched(WebElement element, By elementSearched) { //TODO
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(element).perform();
+//        return driver.findElement(elementSearched).getText();
+//    }
+
+
+
     /**
      * Scrolls downs until the given elemet on the page.
      * @param element : Element to which is going to  be scrolled.
@@ -77,9 +84,10 @@ public class Helper {
             int numberOfImagesEx = getNumberOf_GivenElement(elementToBeScrolledThrough) ;
             ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_slow_motion,"");
             WebDriverWait wait = new WebDriverWait(driver,5);
-            wait.pollingEvery(1, TimeUnit.SECONDS);
-            List<WebElement> elements = driver.findElements(elementToBeScrolledThrough);
-            wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+            wait.pollingEvery(4, TimeUnit.SECONDS);
+//            List<WebElement> elements = driver.findElements(elementToBeScrolledThrough);   //TODO.
+//            wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+            driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
             if (getNumberOf_GivenElement(elementToBeScrolledThrough)==numberOfImagesEx){
                 break;
             }
@@ -125,6 +133,13 @@ public class Helper {
         return null;
     }
 
+    public String getNamesOfTheElement(List<WebElement> elements){
+        for (WebElement name : elements){
+            System.out.println(name.getText());
+        }
+        return null;
+    }
+
     /**
      * @return : Numbers of the given element on the page.
      */
@@ -154,9 +169,15 @@ public class Helper {
     public void optional_wait(By waitedElementLocator , int seconds){
         WebElement elementToBeWaited = driver.findElement(waitedElementLocator);
         WebDriverWait wait = new WebDriverWait(driver,seconds);
-        wait.until(ExpectedConditions.visibilityOf(elementToBeWaited));
-
+        try {
+            wait.until(ExpectedConditions.visibilityOf(elementToBeWaited));
+        }catch(org.openqa.selenium.StaleElementReferenceException e){
+            wait.until(ExpectedConditions.visibilityOf(elementToBeWaited));
+        }
     }
+
+
+
 
     /**
      * Waits for the visibility of the given element
