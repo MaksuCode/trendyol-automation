@@ -28,24 +28,29 @@ public class BaseTest {
         System.setOut(printStream);
     }
 
+    /**
+     * @param browser in testng.xml is set to 3 different values for 3 browser.
+     */
 
+    @Parameters({"browser"})
     @BeforeClass
-    public void setUp(){
-        String browser ="explorer";
-        if (browser.equals("chrome")){
-            System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe") ;
-            driver = new ChromeDriver();
-        }
-        else if (browser.equals("firefox")){
-            System.setProperty("webdriver.gecko.driver","drivers\\geckodriver.exe") ;
-            DesiredCapabilities cap = DesiredCapabilities.firefox();
-            cap.setCapability("marionette", true);
-            cap.setBrowserName("firefox");
-            driver = new FirefoxDriver();
-        }
-        else if (browser.equals("explorer")){
-            System.setProperty("webdriver.ie.driver","drivers\\IEDriverServer.exe");
-            driver = new InternetExplorerDriver();
+    public void setUp(String browser){
+        switch (browser) {
+            case "Chrome":
+                System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
+                driver = new ChromeDriver();
+                break;
+            case "Firefox":
+                System.setProperty("webdriver.gecko.driver", "drivers\\geckodriver.exe");
+                DesiredCapabilities cap = DesiredCapabilities.firefox();
+                cap.setCapability("marionette", true);
+                cap.setBrowserName("firefox");
+                driver = new FirefoxDriver();
+                break;
+            case "Explorer":
+                System.setProperty("webdriver.ie.driver", "drivers\\IEDriverServer.exe");
+                driver = new InternetExplorerDriver();
+                break;
         }
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
