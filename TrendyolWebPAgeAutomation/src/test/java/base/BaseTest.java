@@ -6,14 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
-import tr.com.trendyol.pages.BoutiqueProductsPage;
 import tr.com.trendyol.pages.HomePage;
-import tr.com.trendyol.pages.LoggedInUserHomePage;
-import tr.com.trendyol.pages.categorypages.WomanCategoryPage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
 
 
@@ -21,13 +14,6 @@ public class BaseTest {
 
     private WebDriver driver ;
     protected HomePage homePage ;
-
-
-
-    /**
-     * Log process before every test.
-     * @throws FileNotFoundException :
-     */
 
     /**
      * @param browser in testng.xml is set to 3 different values for 3 browser.
@@ -61,12 +47,12 @@ public class BaseTest {
 
     @BeforeMethod
     public void goHome(){
-        driver.get("https://www.trendyol.com/tum--urunler?q=ayakkab%C4%B1&qt=ayakkab%C4%B1&st=ayakkab%C4%B1&pi=3"); //"https://trendyol.com/
-    } //https://www.trendyol.com/tum--urunler?q=ayakkab%C4%B1&qt=ayakkab%C4%B1&st=ayakkab%C4%B1&pi=3
+        driver.get("https://www.trendyol.com");
+    }
 
     @AfterClass
     public void shutDown(){
-        driver.quit();
+//        driver.quit();
     }
 
 

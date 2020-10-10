@@ -42,14 +42,6 @@ public class Helper {
 
     }
 
-//    public String hoverOverElement_And_GetTheElementListSearched(WebElement element, By elementSearched) { //TODO
-//        Actions actions = new Actions(driver);
-//        actions.moveToElement(element).perform();
-//        return driver.findElement(elementSearched).getText();
-//    }
-
-
-
     /**
      * Scrolls downs until the given elemet on the page.
      * @param element : Element to which is going to  be scrolled.
@@ -80,15 +72,14 @@ public class Helper {
      */
 
     public void scrollDown_until_no_new_image_appears(By elementToBeScrolledThrough){
+        int numberOfImagesFirst = getNumberOf_GivenElement(elementToBeScrolledThrough) ;
         while (true){
-            int numberOfImagesEx = getNumberOf_GivenElement(elementToBeScrolledThrough) ;
-            ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_slow_motion,"");
+            ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_script,"");
             WebDriverWait wait = new WebDriverWait(driver,5);
-            wait.pollingEvery(4, TimeUnit.SECONDS);
-//            List<WebElement> elements = driver.findElements(elementToBeScrolledThrough);   //TODO.
-//            wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+            wait.pollingEvery(6, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
-            if (getNumberOf_GivenElement(elementToBeScrolledThrough)==numberOfImagesEx){
+            ((JavascriptExecutor)driver).executeScript(JsScripts.scroll_down_script,"");
+            if (getNumberOf_GivenElement(elementToBeScrolledThrough)==numberOfImagesFirst){
                 break;
             }
         }

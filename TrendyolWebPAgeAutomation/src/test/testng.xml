@@ -6,47 +6,37 @@
     <parameter name="emailAdress" value="mustafaksu4@gmail.com" />
     <parameter name = "password" value="mustafa112" />
 
-<!--    <test name="Successfull login with mail and purchasing an item" >-->
+    <test name="Test" >
+        <classes>
+            <class name="testcases.LoginTest">
+                <methods>
+                    <include name="devTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+<!--    <test name="Fail login" >-->
+<!--        <parameter name="emailAdress" value="mustafa2@ggmail.com"></parameter>-->
 <!--        <classes>-->
 <!--            <class name="testcases.LoginTest">-->
 <!--                <methods>-->
-<!--                    <include name="successful_login" />-->
+<!--                    <include name="fail_login"/>-->
 <!--                </methods>-->
 <!--            </class>-->
 <!--        </classes>-->
 <!--    </test>-->
 
-<!--&lt;!&ndash;    <test name="Fail login with wrong mail Address" >&ndash;&gt;-->
-<!--&lt;!&ndash;        <classes>&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="testcases.LoginTest">&ndash;&gt;-->
-<!--&lt;!&ndash;                <methods>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <parameter name = "emailAdress" value = "mustafaksu3@gmail.com" />&ndash;&gt;-->
-<!--&lt;!&ndash;                    <include name="fail_login" />&ndash;&gt;-->
-<!--&lt;!&ndash;                </methods>&ndash;&gt;-->
-<!--&lt;!&ndash;            </class>&ndash;&gt;-->
-<!--&lt;!&ndash;        </classes>&ndash;&gt;-->
-<!--&lt;!&ndash;    </test>&ndash;&gt;-->
+<!--    <test name="Method test" >-->
+<!--        <classes>-->
+<!--            <class name="testcases.LoginTest">-->
+<!--                <methods>-->
+<!--                    <include name="productNameTest"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-<!--&lt;!&ndash;    <test name="Fail login with wrong password" >&ndash;&gt;-->
-<!--&lt;!&ndash;        <classes>&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="testcases.LoginTest">&ndash;&gt;-->
-<!--&lt;!&ndash;                <methods>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <parameter name = "password" value="1234" />&ndash;&gt;-->
-<!--&lt;!&ndash;                    <include name="fail_login" />&ndash;&gt;-->
-<!--&lt;!&ndash;                </methods>&ndash;&gt;-->
-<!--&lt;!&ndash;            </class>&ndash;&gt;-->
-<!--&lt;!&ndash;        </classes>&ndash;&gt;-->
-<!--&lt;!&ndash;    </test>&ndash;&gt;-->
-
-    <test name="Product name test" >
-        <classes>
-            <class name="testcases.LoginTest">
-                <methods>
-                    <include name="productNameTest" />
-                </methods>
-            </class>
-        </classes>
-    </test>
 
 
 </suite>
