@@ -20,9 +20,9 @@ public class Helper {
     private By androidOnThePageEnd = By.linkText("Android");
 
 
+
     public Helper(WebDriver driver)  {
         this.driver = driver ;
-
     }
 
     /**
@@ -95,7 +95,7 @@ public class Helper {
 
     public void getImagesNotDownloadedProperly(By imageSearchedThroughPage) {
         List<WebElement> imageList = driver.findElements(imageSearchedThroughPage);
-        optional_wait(imageSearchedThroughPage,5);
+        waitVisibilityOfElement(imageSearchedThroughPage,5);
         for (WebElement image : imageList){
             boolean loaded = (boolean) ((JavascriptExecutor)driver).executeScript(
                     JsScripts.imageDownloaded, image);
@@ -157,7 +157,7 @@ public class Helper {
      * @param seconds : time to wait in seconds.
      */
 
-    public void optional_wait(By waitedElementLocator , int seconds){
+    public void waitVisibilityOfElement(By waitedElementLocator , int seconds){
         WebElement elementToBeWaited = driver.findElement(waitedElementLocator);
         WebDriverWait wait = new WebDriverWait(driver,seconds);
         try {
@@ -177,11 +177,15 @@ public class Helper {
      */
 
 
-    public void optional_wait(WebElement elementToBeWaited , int seconds){
+    public void waitVisibilityOfElement(WebElement elementToBeWaited , int seconds){
         WebDriverWait wait = new WebDriverWait(driver,seconds);
         wait.until(ExpectedConditions.visibilityOf(elementToBeWaited));
 
     }
+
+
+
+
 
 
 

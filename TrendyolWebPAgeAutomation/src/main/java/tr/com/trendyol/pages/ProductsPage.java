@@ -4,15 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
-import tr.com.trendyol.utilities.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoutiqueProductsPage {
+public class ProductsPage extends BasePage {
 
 
-    private WebDriver driver;
     private By product = new By.ByCssSelector("div.image-container");
     private By productImages = new By.ByCssSelector("div.boutique-product div.image-container >img") ;
     private By productImages_2 = new By.ByCssSelector("div.p-card-img-wr >img");
@@ -28,14 +26,9 @@ public class BoutiqueProductsPage {
     private By productStar = new By.ByCssSelector("div.boutique-product div.description >div.ratings div >div.full") ;
 
 
-    private Helper helper ;
 
-
-
-
-    public BoutiqueProductsPage(WebDriver driver){
-        this.driver = driver;
-        this.helper = new Helper(this.driver) ;
+    public ProductsPage(WebDriver driver){
+        super(driver);
     }
 
     /**
@@ -66,7 +59,7 @@ public class BoutiqueProductsPage {
      */
 
     public ProductDetailsPage clickProduct(int index){
-        helper.optional_wait(product,5);
+        helper.waitVisibilityOfElement(product,5);
         WebElement element =driver.findElements(product).get(index);
         element.click();
         Reporter.log("* Clicked " + (index+1) + ". product on the boutique page.\n");
@@ -80,7 +73,7 @@ public class BoutiqueProductsPage {
      */
 
     public Boolean checkIfTheUserIs_OnBoutiqueProductPage(){
-        helper.optional_wait(product,5);
+        helper.waitVisibilityOfElement(product,5);
         Boolean isPresent = driver.findElements(product).size() > 0;
         return isPresent ;
 

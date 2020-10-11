@@ -6,17 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import tr.com.trendyol.utilities.Helper;
 
-public class ProductDetailsPage {
+public class ProductDetailsPage extends BasePage {
 
-    private WebDriver driver ;
     private By addToCarButton = new By.ByCssSelector("div.add-to-bs-tx");
     private By basketItemCount = new By.ByCssSelector("div.basket-item-count >span");
 
-
-
     public ProductDetailsPage(WebDriver driver){
-        this.driver = driver ;
-
+        super(driver);
     }
 
     public void addToCart(){
@@ -28,7 +24,7 @@ public class ProductDetailsPage {
 
     public Boolean checkIfTheUserIs_OnProductDetailsPage(){
         Helper helper = new Helper(driver);
-        helper.optional_wait(addToCarButton,5);
+        helper.waitVisibilityOfElement(addToCarButton,5);
         Boolean isPresent = driver.findElements(addToCarButton).size()> 0;
         return isPresent ;
     }

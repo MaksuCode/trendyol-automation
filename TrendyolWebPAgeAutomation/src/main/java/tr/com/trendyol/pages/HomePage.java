@@ -4,32 +4,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import tr.com.trendyol.utilities.Constants;
-import tr.com.trendyol.utilities.Helper;
 import org.testng.Reporter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
-    private final WebDriver driver ;
-    private final Helper helper ;
     private final By accountButton = By.id("accountBtn");
-    private final By popupLoginMainMessage = By.className("text-center");
-    private final By inputEmail = By.id("email") ;
-    private final By inputPassword = By.id("password") ;
-    private final By loginSubmitButton = By.id("loginSubmit") ;
-    private final By wrongMailOrPasswordError = By.xpath("//div[@id='errorBox']");
     private final By modalCloseButton = By.className("modal-close");
     private final By userMailAddress = By.className("user-email");
     private final By category = By.className("category-header");
     private final By boutiqueImages = new By.ByCssSelector("span.image-container >img");
     private final By boutique = By.className("campaign") ;
     private final By subCategory = new By.ByCssSelector("div.category-box >a.sub-category-header") ;
-    private final By subItem = new By.ByCssSelector("div.category-box > ul.sub-item-list a") ;   //>li >a
+    private final By subItem = new By.ByCssSelector("div.category-box > ul.sub-item-list a") ;
+    private final By genderSelectionFancyBox = new By.ByCssSelector("div.fancybox-skin >a");
 
     /**
      * HomePage is the page when the the browser first initiated.
@@ -37,8 +28,10 @@ public class HomePage {
      */
 
     public HomePage(WebDriver driver){
-        this.driver = driver ;
-        this.helper = new Helper(this.driver);
+        super(driver);
+    }
+
+    public HomePage() {
     }
 
     /**
@@ -46,7 +39,7 @@ public class HomePage {
      */
 
     public void clickAccountButton(){
-        helper.optional_wait(accountButton,3);
+        helper.waitVisibilityOfElement(accountButton,3);
         try {
             driver.findElement(accountButton).click();
         }catch(org.openqa.selenium.StaleElementReferenceException e){
@@ -55,53 +48,12 @@ public class HomePage {
         Reporter.log("* Clicked account button\n");
     }
 
-    /**
-     * Used to check if the user is on the Log in pop-up.
-     * @return : Log pop-up Main Message.
-     */
-
-    public String getPopupLoginMainMessage(){
-        helper.optional_wait(popupLoginMainMessage,3);
-        return driver.findElement(popupLoginMainMessage).getText();
-    }
 
     /**
-     * Sets the mail address on the Log in pop up.
-     * @param email : Mail address
+     * Sets valid mail address on the Log in page.
      */
 
-    public void setEmail(String email){
-        helper.optional_wait(inputEmail,5);
-        driver.findElement(inputEmail).sendKeys(email);
-        Reporter.log("* Email address set\n");
-    }
 
-    /**
-     * Sets the password on the Log in pop up.
-     * @param password : Password
-     */
-
-    public void setPassword(String password){
-        helper.optional_wait(inputPassword,5);
-        driver.findElement(inputPassword).sendKeys(password);
-        Reporter.log("* Password set\n");
-    }
-
-    /**
-     * Clicks the submit Login Button on the log in pop up.
-     * @return : LoggedInUserHomePage
-     */
-
-    public void clickLoginButton(){
-        helper.optional_wait(loginSubmitButton,5);
-        driver.findElement(loginSubmitButton).click();
-        Reporter.log("* Clicked login button\n");
-    }
-
-    public String getErrorMessageOnLogin(){
-        return driver.findElement(wrongMailOrPasswordError).getText();
-
-    }
 
     public void clickBoutique() {
         driver.findElements(boutique).get(0).click();
@@ -111,7 +63,7 @@ public class HomePage {
      * Closes the modal if appeared on the page.
      */
 
-    public void closeModalIfExist() {
+    public void closeModalIfExist(WebDriver driver) {
         boolean isPresent = driver.findElements(modalCloseButton).size() > 0;
         if (isPresent) {
             driver.findElement(modalCloseButton).click();
@@ -125,7 +77,7 @@ public class HomePage {
      * @return : User mail address.
      */
 
-    public String getUserMailAddress_UnderAccountButton() {
+    public String getMailAddressUnderAccountButton() {
         return helper.hoverOverElement_And_GetTheElementSearched(accountButton, userMailAddress);
     }
 
@@ -237,6 +189,14 @@ public class HomePage {
 
 
         getSubItemNames();
+    }
+
+    public void closeFancyBoxIfExist(){
+        List<WebElement> element = driver.findElements(genderSelectionFancyBox) ;
+        boolean isPresent = element.size()>0 ;
+        if (isPresent){
+            element.get(0).click();
+        }
     }
 
 

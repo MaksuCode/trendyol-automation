@@ -1,5 +1,5 @@
 # trendyol-automation
-Trendyol web page Automation with Selenium WebDriver
+Trendyol web basePage Automation with Selenium WebDriver
 This is a basic web automation created with Selenium.
 
 
